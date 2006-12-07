@@ -11,7 +11,7 @@
  (FFmpeg::Command "http://search.cpan.org/~mizzy/FFmpeg-Command-0.06/lib/FFmpeg/Command.pm")
  )
 
-(define *last-update* "Tue Nov 07 2006")
+(define *last-update* "Thu Nov 07 2006")
 (define *gauche-ffmpeg-version* (file->string "../VERSION"))
 (define *gauche-ffmpeg-tarball-basename* (string-append "Gauche-ffmpeg-" *gauche-ffmpeg-version* ".tgz"))
 (define *gauche-ffmpeg-tarball-size* (file-size (string-append "../../" *gauche-ffmpeg-tarball-basename*)))
@@ -36,8 +36,8 @@
 
 	 (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Features" "特徴"))
 	 (html:ul
-	  (html:li (en/ja "Getting some descriptions of media files."
-					  "メディアファイルの情報を取得する。"))
+	  (html:li (en/ja "some descriptions on media files."
+					  "メディアファイルの情報の取得。"))
 	  )
 
 	 (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Requirements" "導入"))
@@ -45,7 +45,7 @@
 					"このパッケージは Gauche 0.8.7 またはそれ以上で動作します。"))
 	 (html:ul
 	  (html:li (en/ja (list "It requires the current SVN release of " /ffmpeg/ " which has been installed with a shared library option.")
-					  (list "また別途、現在の SVN リリース版の " /ffmpeg/ "の共有ライブラリがインストールされている必要があります。"))))
+					  (list "また別途、現在の SVN リリース版 " /ffmpeg/ "の共有ライブラリがインストールされている必要があります。"))))
 
 	 (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Download" "ダウンロード"))
 	 (html:p (html:a :href *gauche-ffmpeg-tarball-url*
