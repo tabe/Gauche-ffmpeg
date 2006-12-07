@@ -1,0 +1,11 @@
+Read INSTALL to install.
+Send bugs and/or patches to tabe@fixedpoint.jp.
+
+
+project description
+-------------------
+
+Gauche-ffmpeg is an experimental project for Gauche users to associate with FFmpeg,
+which provides a complete solution to manipulate audio/video.
+Since FFmpeg is constantly evolving so far, it has much useful but slightly complex libraries.
+Now the principal aim of this project is simplicity, which will keep its API clear and stable.

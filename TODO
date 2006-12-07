@@ -1,0 +1,5 @@
+in no paricular order:
+- some situations should be reported by an explicit error
+- an AVInputStream/AVOutputStream compatible port
+- encode & decode
+- vhook

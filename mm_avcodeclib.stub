@@ -1,0 +1,45 @@
+;;;
+;;;  mm_avcodeclib.stub
+;;;
+;;;   Copyright (C) 2006 Takeshi Abe. All rights reserved.
+;;;
+;;;   This library is free software; you can redistribute it and/or
+;;;   modify it under the terms of the GNU Lesser General Public
+;;;   License as published by the Free Software Foundation; either
+;;;   version 2.1 of the License, or (at your option) any later version.
+;;;
+;;;   This library is distributed in the hope that it will be useful,
+;;;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;;;   Lesser General Public License for more details.
+;;;
+;;;   You should have received a copy of the GNU Lesser General Public
+;;;   License along with this library; if not, write to the Free Software
+;;;   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+;;;
+;;;  $Id$
+
+"#include \"mm_avcodec.h\""
+
+(include "mm_avcodec.types")
+
+(define-cproc avcodec-close-input-avcodec (pCtx::<avcodec-context>)
+  (body <void>
+		"if (!avcodecContextClosedP(pCtx_scm)) {"
+		"  AVCODEC_CONTEXT_CLEAN_UP(pCtx);"
+		"  avcodecContextMarkClosed(pCtx_scm);"
+		"}"))
+(define-cproc avcodec-context-bit-rate (pCtx::<avcodec-context>)
+  (expr <int> "pCtx->bit_rate"))
+(define-cproc avcodec-context-sample-rate (pCtx::<avcodec-context>)
+  (expr <int> "pCtx->sample_rate"))
+(define-cproc avcodec-context-width (pCtx::<avcodec-context>)
+  (expr <int> "pCtx->width"))
+(define-cproc avcodec-context-height (pCtx::<avcodec-context>)
+  (expr <int> "pCtx->height"))
+(define-cproc avcodec-context-codec-name (pCtx::<avcodec-context>)
+  (call <const-cstring> "avcodecContextGetCodecName"))
+
+;; Local variables:
+;; mode: scheme
+;; end:

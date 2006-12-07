@@ -1,0 +1,104 @@
+#
+# $Id$
+#
+
+# General info
+SHELL       = @SHELL@
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+libdir      = @libdir@
+VPATH       = $(srcdir)
+
+# These may be overridden by make invocators
+DESTDIR        =
+GOSH           = @GOSH@
+GAUCHE_CONFIG  = @GAUCHE_CONFIG@
+GAUCHE_PACKAGE = @GAUCHE_PACKAGE@
+INSTALL        = @GAUCHE_INSTALL@
+
+# Other parameters
+SOEXT  = @SOEXT@
+OBJEXT = @OBJEXT@
+EXEEXT = @EXEEXT@
+
+# Module-specific stuff
+PACKAGE   = Gauche-ffmpeg
+
+ARCHFILES = mm_avformat.$(SOEXT) mm_avcodec.$(SOEXT) mm_ffmpeg.$(SOEXT)
+SCMFILES  = multimedia/avcodec.scm multimedia/avformat.scm multimedia/ffmpeg.scm
+HEADERS   = mm_avcodec.h mm_avcodec.types \
+            mm_avformat.h mm_avformat.types
+
+TARGET    = $(ARCHFILES)
+GENERATED =
+CONFIG_GENERATED = Makefile config.cache config.log config.status \
+		   configure.lineno autom4te*.cache $(PACKAGE).gpd
+
+HEADER_INSTALL_DIR  = $(DESTDIR)`$(GAUCHE_CONFIG) --siteincdir`
+SCM_INSTALL_DIR     = $(DESTDIR)`$(GAUCHE_CONFIG) --sitelibdir`
+ARCH_INSTALL_DIR    = $(DESTDIR)`$(GAUCHE_CONFIG) --sitearchdir`
+
+CPPFLAGS = @CPPFLAGS@
+CFLAGS   = @CFLAGS@
+LDFLAGS  = @LDFLAGS@
+LIBS     = @LIBS@
+
+avcodec_SRCS  = mm_avcodec.c mm_avcodeclib.stub
+avformat_SRCS = mm_avformat.c mm_avformatlib.stub
+ffmpeg_SRCS   = mm_ffmpeg.c mm_ffmpeglib.stub
+
+all: $(GENERATED) $(TARGET)
+
+mm_avcodec.$(SOEXT): $(avcodec_SRCS)
+	$(GAUCHE_PACKAGE) compile --verbose \
+		--cppflags='$(CPPFLAGS)' \
+		--cflags='$(CFLAGS)' \
+		--ldflags='$(LDFLAGS)' \
+		--libs=' $(LIBS) -lavcodec' \
+		mm_avcodec $(avcodec_SRCS)
+
+mm_avformat.$(SOEXT): $(avformat_SRCS)
+	$(GAUCHE_PACKAGE) compile --verbose \
+		--cppflags='$(CPPFLAGS)' \
+		--cflags='$(CFLAGS)' \
+		--ldflags='$(LDFLAGS)' \
+		--libs=' $(LIBS) -lavformat' \
+		mm_avformat $(avformat_SRCS)
+
+mm_ffmpeg.$(SOEXT): $(ffmpeg_SRCS)
+	$(GAUCHE_PACKAGE) compile --verbose \
+		--cppflags='$(CPPFLAGS)' \
+		--cflags='$(CFLAGS)' \
+		--ldflags='$(LDFLAGS)' \
+		--libs='$(LIBS) -lavcodec -lavformat' \
+		mm_ffmpeg $(ffmpeg_SRCS)
+
+check: all
+	cd test && $(MAKE) check
+
+doc: all
+	cd doc && $(MAKE) doc
+
+install: all
+	$(INSTALL) -m 444 -T $(HEADER_INSTALL_DIR) $(HEADERS)
+	$(INSTALL) -m 444 -T $(SCM_INSTALL_DIR) $(SCMFILES) 
+	$(INSTALL) -m 555 -T $(ARCH_INSTALL_DIR) $(ARCHFILES)
+	$(INSTALL) -m 444 -T $(SCM_INSTALL_DIR)/.packages $(PACKAGE).gpd
+
+uninstall:
+	$(INSTALL) -U $(HEADER_INSTALL_DIR) $(HEADERS)
+	$(INSTALL) -U $(SCM_INSTALL_DIR) $(SCMFILES) 
+	$(INSTALL) -U $(ARCH_INSTALL_DIR) $(ARCHFILES)
+	$(INSTALL) -U $(SCM_INSTALL_DIR)/.packages $(PACKAGE).gpd
+
+clean:
+	$(GAUCHE_PACKAGE) compile --clean ffmpeg $(ffmpeg_SRCS)
+	cd test && $(MAKE) clean
+	rm -rf core *~ $(TARGET) $(GENERATED) so_locations
+
+distclean: clean
+	rm -rf $(CONFIG_GENERATED)
+
+maintainer-clean: clean
+	rm -rf $(CONFIG_GENERATED) configure

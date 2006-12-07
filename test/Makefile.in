@@ -1,0 +1,24 @@
+GOSH = @GOSH@
+
+BASENAME = @BASENAME@
+WGET = @WGET@
+
+TEST_GENERATED = test.log
+TEST_MEDIA = asf-wmv/welcome3.wmv \
+	avi/ogg/mode1_ogg.avi \
+	FLV/zelda.flv \
+	mobileVideo_3gp/11082005.3gp \
+	mov/aacaudio.mov
+
+check: clean download
+	$(GOSH) -I.. test.scm > test.log
+
+download:
+	for m in $(TEST_MEDIA); do \
+		if test ! -f `$(BASENAME) $$m`; then \
+			$(WGET) ftp://upload.mplayerhq.hu/MPlayer/samples/$$m; \
+		fi; \
+	done
+
+clean:
+	-rm -f $(TEST_GENERATED)

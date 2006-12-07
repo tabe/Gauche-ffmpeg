@@ -1,0 +1,4 @@
+DIST_EXCLUDE
+Gauche-ffmpeg.gpd
+autom4te.cache
+gauche-ffmpeg
