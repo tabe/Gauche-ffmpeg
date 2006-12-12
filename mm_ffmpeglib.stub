@@ -25,11 +25,11 @@
 (include "mm_avformat.types")
 
 (define-cproc ffmpeg-open-input-vcodec (pFormatCtx::<avformat-context>)
-  (call <avcodec-context> "ffmpegOpenVideoCodecContext"))
+  (call <avcodec-context>? "ffmpegOpenVideoCodecContext"))
 (define-cproc ffmpeg-open-input-acodec (pFormatCtx::<avformat-context>)
-  (call <avcodec-context> "ffmpegOpenAudioCodecContext"))
+  (call <avcodec-context>? "ffmpegOpenAudioCodecContext"))
 (define-cproc ffmpeg-open-input-avcodec (pFormatCtx::<avformat-context>)
-  (body (<avcodec-context> <avcodec-context>)
+  (body (<avcodec-context>? <avcodec-context>?)
 		"ffmpegOpenCodecContext(pFormatCtx, &SCM_RESULT0, &SCM_RESULT1);"))
 
 (define-cproc ffmpeg-get-frame-rate (pFormatCtx::<avformat-context> pCodecCtx::<avcodec-context>)

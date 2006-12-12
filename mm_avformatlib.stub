@@ -24,7 +24,7 @@
 (include "mm_avformat.types")
 
 (define-cproc avformat-open-input-avformat (path::<const-cstring>)
-  (call <avformat-context> "avformatOpenInputContext"))
+  (call <avformat-context>? "avformatOpenInputContext"))
 (define-cproc avformat-close-input-avformat (ctx::<avformat-context>)
   (body <void>
 		"if (!avformatContextClosedP(ctx_scm)) {"
@@ -34,7 +34,7 @@
 (define-cproc avformat-context-duration (ctx::<avformat-context>)
   (call <double> "avformatContextGetDuration"))
 (define-cproc avformat-context-filename (ctx::<avformat-context>)
-  (expr <const-cstring> "ctx->filename"))
+  (expr <const-cstring>? "ctx->filename"))
 
 ;; Local variables:
 ;; mode: scheme

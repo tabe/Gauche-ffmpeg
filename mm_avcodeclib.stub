@@ -38,7 +38,7 @@
 (define-cproc avcodec-context-height (pCtx::<avcodec-context>)
   (expr <int> "pCtx->height"))
 (define-cproc avcodec-context-codec-name (pCtx::<avcodec-context>)
-  (call <const-cstring> "avcodecContextGetCodecName"))
+  (call <const-cstring>? "avcodecContextGetCodecName"))
 
 ;; Local variables:
 ;; mode: scheme

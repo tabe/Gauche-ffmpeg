@@ -4,8 +4,8 @@
 (use text.html-lite)
 (use text.tree)
 
-(define *version* "0.1.0")
-(define *last-update* "Thu Dec 07 2006")
+(define *version* "0.1.1")
+(define *last-update* "Mon Dec 11 2006")
 
 (define-syntax def
   (syntax-rules (en ja procedure method)
@@ -50,7 +50,7 @@
 
 	   ((class <avcodec-context>)
 		("Each instance of the class has a pointer to its own AVCodecContext.")
-		("各インスタンスは AVCodecContext へのポインタを持つ。"))
+		("各インスタンスは AVCodecContext へのポインタを持ちます。"))
 
 	   ((method (close-input-avcodec (c <avcodec-context>)))
 		("Close the <avcodec-context> `c'. GC will do that finally even if you leave it open.")
@@ -73,8 +73,8 @@
 		("(ビデオのみ) `c' の縦幅を返します。"))
 
 	   ((method (get-codec-name (c <avcodec-context>)))
-		("Return its codec name as a string.")
-		("コーデックの名前を文字列で返します。"))
+		("Return its codec name as a string, or #f if failed.")
+		("コーデックの名前を文字列で返します。名前が取得できない場合は #f を返します。"))
 	   ))
 
 (define-macro (api-libavformat lang)
@@ -82,11 +82,11 @@
 
 	   ((class <avformat-context>)
 		("Each instance of the class has a pointer to its own AVFormatContext.")
-		("各インスタンスは AVFormatContext へのポインタを持つ。"))
+		("各インスタンスは AVFormatContext へのポインタを持ちます。"))
 
 	   ((method (open-input-avformat (path <string>)))
-		("Open and return a <avformat-context> of the av file of path `path'.")
-		("`path' にあるファイルを新たに開き <avformat-context> を返します。"))
+		("Open and return a <avformat-context> of the av file of path `path', or #f if falied.")
+		("`path' にあるファイルを新たに開き <avformat-context> を返します。失敗した場合には #f を返します。"))
 
 	   ((method (close-input-avformat (c <avformat-context>)))
 		("Close a <avformat-context> `c'. GC will do that after all if you do not care.")
@@ -97,8 +97,8 @@
 		("`c' の再生時間を秒単位で返します。"))
 
 	   ((method (get-file-name (c <avformat-context>)))
-		("Return the plain name of the media file of `c'")
-		("`c' のメディアファイルのファイル名を返します。"))
+		("Return the plain name of the media file of `c', or #f if failed.")
+		("`c' のメディアファイルのファイル名を返します。ファイル名が取得できない場合は #f を返します。"))
 
 	   ((procedure (call-with-input-avformat path proc))
 		("Call `proc' with a <avformat-context>, which newly open the file of path `path', as a single argument, and return the value `proc' does in case of success."
@@ -112,8 +112,10 @@
 		((method (open-input-acodec (c <avformat-context>))
 				 (open-input-vcodec (c <avformat-context>))
 				 (open-input-avcodec (c <avformat-context>)))
-		 ("The first form opens and returns a audio <avcodec-context> from `c'. The second one does a video <avcodec-context>. And the last simultaneously returns both values i.e. audio and video codec contexts in that order.")
-		 ("最初のメソッドは `c' からオーディオの <avcodec-context> を開いて返します。2番目は同じようにビデオの <avcodec-context> を返します。そして最後は同時にオーディオ、ビデオ両方の値をこの順番で返します。"))
+		 ("The first form opens and returns a audio <avcodec-context> from `c'. The second one does a video <avcodec-context>. And the last simultaneously returns both values i.e. audio and video codec contexts in that order."
+		  "Any of them returns #f if failed.")
+		 ("最初のメソッドは `c' からオーディオの <avcodec-context> を開いて返します。2番目は同じようにビデオの <avcodec-context> を返します。そして最後は同時にオーディオ、ビデオ両方の値をこの順番で返します。"
+		  "失敗した場合はいずれも #f を返します。"))
 
 		((method (get-frame-rate (fc <avformat-context>) (cc <avcodec-context>)))
 		 ("Return two numbers: the numerator and denominator of the frame rate of video with `fc' and `cc'."
