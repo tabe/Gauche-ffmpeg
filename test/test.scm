@@ -9,6 +9,23 @@
 (use multimedia.ffmpeg)
 (test-module 'multimedia.ffmpeg)
 
+(define-macro (test*-version proc)
+  `(begin
+	 (let ((v (,proc)))
+	   (test* ,(symbol->string proc)
+			  #t
+			  (and (string? v)
+				   (is-a? (rxmatch #/^[0-9]+\.[0-9]+\.[0-9]+$/ v) <regmatch>)))
+	   (print v))))
+
+; ------------------------------------------------------------------------
+(test-section "libavcodec")
+(test*-version avcodec-version)
+
+; ------------------------------------------------------------------------
+(test-section "libavformat")
+(test*-version avformat-version)
+
 ; ------------------------------------------------------------------------
 (test-section "format context")
 

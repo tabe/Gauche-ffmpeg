@@ -21,6 +21,7 @@
 
 (define-module multimedia.avcodec
   (export <avcodec-context>
+		  avcodec-version
 		  close-input-avcodec
 		  get-bit-rate
 		  get-sample-rate

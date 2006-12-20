@@ -23,6 +23,9 @@
 
 (include "mm_avcodec.types")
 
+(define-cproc avcodec-version ()
+  (expr <const-cstring> "AV_STRINGIFY(LIBAVCODEC_VERSION)"))
+
 (define-cproc avcodec-close-input-avcodec (pCtx::<avcodec-context>)
   (body <void>
 		"if (!avcodecContextClosedP(pCtx_scm)) {"

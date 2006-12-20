@@ -5,7 +5,7 @@
 (use text.tree)
 
 (define *version* "0.1.1")
-(define *last-update* "Mon Dec 11 2006")
+(define *last-update* "Wed Dec 20 2006")
 
 (define-syntax def
   (syntax-rules (en ja procedure method)
@@ -56,6 +56,10 @@
 		("Close the <avcodec-context> `c'. GC will do that finally even if you leave it open.")
 		("<avcodec-context> `c' を閉じます。そのままにしておくと gc が最終的に閉じます。"))
 
+	   ((procedure (avcodec-version))
+		("Return the libavcodec's version, e.g. \"51.27.0\".")
+		("libavcodec のバージョン(例: \"51.27.0\")を文字列として返します。"))
+
 	   ((method (get-bit-rate (c <avcodec-context>)))
 		("(For audio only) Return the bit rate of `c'.")
 		("(オーディオのみ) `c' のビットレートを返します。"))
@@ -83,6 +87,10 @@
 	   ((class <avformat-context>)
 		("Each instance of the class has a pointer to its own AVFormatContext.")
 		("各インスタンスは AVFormatContext へのポインタを持ちます。"))
+
+	   ((procedure (avformat-version))
+		("Return the libavformat's version, e.g. \"51.6.0\".")
+		("libavformat のバージョン(例: \"51.6.0\")を文字列として返します。"))
 
 	   ((method (open-input-avformat (path <string>)))
 		("Open and return a <avformat-context> of the av file of path `path', or #f if falied.")

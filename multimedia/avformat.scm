@@ -21,6 +21,7 @@
 
 (define-module multimedia.avformat
   (export <avformat-context>
+		  avformat-version
 		  open-input-avformat
 		  close-input-avformat
 		  get-duration
