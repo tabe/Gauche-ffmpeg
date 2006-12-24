@@ -62,5 +62,5 @@ $GAUCHE_PACKAGE make-gpd "$PACKAGE_NAME" \
   -configure "./configure $GAUCHE_PACKAGE_CONFIGURE_ARGS"
 
 dnl Output
-echo $PACKAGE_VERSION > VERSION
+echo -n $PACKAGE_VERSION > VERSION
 AC_OUTPUT(Makefile test/Makefile doc/Makefile example/Makefile)
