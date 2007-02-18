@@ -31,7 +31,10 @@ HEADERS   = mm_avcodec.h mm_avcodec.types \
             mm_avformat.h mm_avformat.types
 
 TARGET    = $(ARCHFILES)
-GENERATED =
+GENERATED = *.$(OBJEXT) \
+			mm_avformat_head.c mm_avformat_tail.c \
+			mm_avcodec_head.c mm_avcodec_tail.c \
+			mm_ffmpeg_head.c mm_ffmpeg_tail.c
 CONFIG_GENERATED = Makefile config.cache config.log config.status \
 		   configure.lineno autom4te*.cache $(PACKAGE).gpd
 
@@ -48,7 +51,7 @@ avcodec_SRCS  = mm_avcodec.c mm_avcodeclib.stub
 avformat_SRCS = mm_avformat.c mm_avformatlib.stub
 ffmpeg_SRCS   = mm_ffmpeg.c mm_ffmpeglib.stub
 
-all: $(GENERATED) $(TARGET)
+all: $(TARGET)
 
 mm_avcodec.$(SOEXT): $(avcodec_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
