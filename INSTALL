@@ -14,6 +14,7 @@ Command lines
 
 $ ./configure
 $ make
+$ make check
 # make install
 
 
@@ -28,15 +29,15 @@ instead of just make.
 Distribution Specific
 =====================
 
-* Debian (sarge)
+* Debian (etch)
 An example intallation of ffmpeg:
-# apt-get install libogg-dev libvorbis-dev
+# aptitude install libogg-dev libvorbis-dev
 $ cd /path/to/ffmpeg
 $ ./configure  --enable-shared --disable-static --enable-gpl --enable-libogg --enable-vorbis --disable-ffserver --disable-ffplay
 $ make
 # make install
 
-And if you have:
+And if you get:
 $ ffmpeg -version
 ffmpeg: error while loading shared libraries: libavformat.so.50: cannot open shared object file: No such file or directory
 then you may need to:
