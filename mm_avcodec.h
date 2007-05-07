@@ -35,12 +35,15 @@ extern ScmClass *AVCodecContextClass;
 #define AVCODEC_CONTEXT_UNBOX(obj) SCM_FOREIGN_POINTER_REF(AVCodecContext *, obj)
 #define AVCODEC_CONTEXT_BOX(ctx)   Scm_MakeForeignPointer(AVCodecContextClass, ctx)
 
-#define AVCODEC_CONTEXT_CLEAN_UP(ctx) do { \
-	if (ctx->codec) avcodec_close(ctx);	   \
+#define AVCODEC_CONTEXT_CLEAN_UP(ctx) do {		\
+	if (ctx->codec) mm_avcodec_close(ctx);		\
   } while (0)
 
 int  avcodecContextClosedP(ScmObj obj);
 void avcodecContextMarkClosed(ScmObj obj);
+
+int mm_avcodec_open(AVCodecContext *pCtx, AVCodec *pCodec);
+int mm_avcodec_close(AVCodecContext *pCtx);
 
 const char *avcodecContextGetCodecName(AVCodecContext *pCtx);
 

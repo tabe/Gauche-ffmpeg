@@ -52,6 +52,28 @@ avcodecContextMarkClosed(ScmObj obj)
 							sym_closed, SCM_TRUE);
 }
 
+static ScmInternalMutex mm_avcodec_context_mutex;
+
+int
+mm_avcodec_open(AVCodecContext *pCtx, AVCodec *pCodec)
+{
+  int r;
+  (void)SCM_INTERNAL_MUTEX_LOCK(mm_avcodec_context_mutex);
+  r = avcodec_open(pCtx, pCodec);
+  (void)SCM_INTERNAL_MUTEX_UNLOCK(mm_avcodec_context_mutex);
+  return r;
+}
+
+int
+mm_avcodec_close(AVCodecContext *pCtx)
+{
+  int r;
+  (void)SCM_INTERNAL_MUTEX_LOCK(mm_avcodec_context_mutex);
+  r = avcodec_close(pCtx);
+  (void)SCM_INTERNAL_MUTEX_UNLOCK(mm_avcodec_context_mutex);
+  return r;
+}
+
 const char *
 avcodecContextGetCodecName(AVCodecContext *pCtx)
 {
@@ -65,6 +87,7 @@ Scm_Init_mm_avcodec(void)
 {
   ScmModule *mod;
 
+  (void)SCM_INTERNAL_MUTEX_INIT(mm_avcodec_context_mutex);
   SCM_INIT_EXTENSION(mm_avcodec);
 
   mod = SCM_MODULE(SCM_FIND_MODULE("multimedia.avcodec", TRUE));

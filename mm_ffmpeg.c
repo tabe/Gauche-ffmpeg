@@ -31,7 +31,7 @@
 		AVCodec *pCodec;												\
 		if ( (pCodec = avcodec_find_decoder(pCodecCtx->codec_id)) == NULL) { \
 		  continue;														\
-		} else if (avcodec_open(pCodecCtx, pCodec) < 0) {				\
+		} else if (mm_avcodec_open(pCodecCtx, pCodec) < 0) {			\
 		  continue;														\
 		} else {														\
 		  return pCodecCtx;												\
@@ -58,7 +58,7 @@ ffmpegOpenCodecContext(AVFormatContext *pFormatCtx, AVCodecContext **a, AVCodecC
 #define FIND_DECODER_AND_OPEN_CODEC_CONTEXT(target, co_target)			\
 	  if ( (pCodec = avcodec_find_decoder(pCodecCtx->codec_id)) == NULL) { \
 		continue;														\
-	  }	else if (avcodec_open(pCodecCtx, pCodec) < 0) {					\
+	  }	else if (mm_avcodec_open(pCodecCtx, pCodec) < 0) {				\
 		continue;														\
 	  } else {															\
 		target = pCodecCtx;												\
