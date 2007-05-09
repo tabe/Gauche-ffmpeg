@@ -1,3 +1,7 @@
+2007-05-09  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* INSTALL: Debian-specific instructions added.
+
 2007-05-08  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* release 0.1.1.

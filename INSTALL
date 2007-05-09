@@ -30,8 +30,13 @@ Distribution Specific
 =====================
 
 * Debian (etch)
-An example intallation of ffmpeg:
+First you have to assure that the old packages of ffmpeg has been removed, namely:
+# aptitude purge ffmpeg libavcodec-dev libavformat-dev
+
+Then install some additional libraries:
 # aptitude install libogg-dev libvorbis-dev
+
+Now build and install the current version:
 $ cd /path/to/ffmpeg
 $ ./configure  --enable-shared --disable-static --enable-gpl --enable-libogg --enable-vorbis --disable-ffserver --disable-ffplay
 $ make
