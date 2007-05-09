@@ -79,6 +79,7 @@
 (test-section "some sample files")
 
 (use srfi-1)
+(use util.match)
 
 (define-syntax cond-test*
   (syntax-rules ()
@@ -89,40 +90,34 @@
 		   (test* str 'N/A 'N/A))))))
 
 (define (check-file spec)
-  (let ((name (car spec))
-		(spec-duration (second spec))
-		(spec-audio (third spec))
-		(spec-video (fourth spec)))
-	(let ((spec-acodec (first spec-audio))
-		  (spec-bit-rate (second spec-audio))
-		  (spec-sample-rate (third spec-audio))
-		  (spec-vcodec (first spec-video))
-		  (spec-width (second spec-video))
-		  (spec-height (third spec-video))
-		  (spec-num (fourth spec-video))
-		  (spec-den (fifth spec-video)))
-	  (when (file-is-regular? name)
-		(call-with-input-avformat
-		 name
-		 (lambda (fc)
-		   (when fc
-			 (cond-test* "get-duration" spec-duration (get-duration fc))
-			 (call-with-input-avcodec
-			  fc
-			  (lambda (ac vc)
-				(when ac
-				  (cond-test* "get-codec-name(audio)" spec-acodec (get-codec-name ac))
-				  (cond-test* "get-bit-rate(audio)"    spec-bit-rate (and ac (get-bit-rate ac)))
-				  (cond-test* "get-sample-rate(audio)" spec-sample-rate (and ac (get-sample-rate ac))))
-				(when vc
-				  (cond-test* "get-codec-name(video)" spec-vcodec (get-codec-name vc))
-				  (cond-test* "get-width" spec-width (get-width vc))
-				  (cond-test* "get-height" spec-height (get-height vc))
-				  (receive (num den)
-					  (get-frame-rate fc vc)
-					(cond-test* "get-frame-rate(num)" spec-num num)
-					(cond-test* "get-frame-rate(den)" spec-den den)))
-				)))))))))
+  (match spec
+	((name spec-duration spec-audio spec-video)
+	 (match spec-audio
+	   ((spec-acodec spec-bit-rate spec-sample-rate)
+		(match spec-video
+		  ((spec-vcodec spec-width spec-height spec-num spec-den)
+		   (when (file-is-regular? name)
+			 (call-with-input-avformat
+			  name
+			  (lambda (fc)
+				(when fc
+				  (cond-test* "get-duration" spec-duration (get-duration fc))
+				  (call-with-input-avcodec
+				   fc
+				   (lambda (ac vc)
+					 (when ac
+					   (cond-test* "get-codec-name(audio)" spec-acodec (get-codec-name ac))
+					   (cond-test* "get-bit-rate(audio)"    spec-bit-rate (and ac (get-bit-rate ac)))
+					   (cond-test* "get-sample-rate(audio)" spec-sample-rate (and ac (get-sample-rate ac))))
+					 (when vc
+					   (cond-test* "get-codec-name(video)" spec-vcodec (get-codec-name vc))
+					   (cond-test* "get-width" spec-width (get-width vc))
+					   (cond-test* "get-height" spec-height (get-height vc))
+					   (receive (num den)
+						   (get-frame-rate fc vc)
+						 (cond-test* "get-frame-rate(num)" spec-num num)
+						 (cond-test* "get-frame-rate(den)" spec-den den)))
+					 )))))))))))))
 
 (for-each
  check-file

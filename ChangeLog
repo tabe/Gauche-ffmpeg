@@ -1,3 +1,7 @@
+2007-05-10  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* test/test.scm (check-file): rewritten with match macro.
+
 2007-05-09  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* INSTALL: Debian-specific instructions added.
