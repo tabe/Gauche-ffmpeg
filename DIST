@@ -70,6 +70,6 @@ if [ "$pub" = "yes" ]; then
 	  ../$MODULE-$VERSION/doc/reference.en.html \
 	  gauche-ffmpeg/index.html \
 	  gauche-ffmpeg/index.en.html; do
-	cp -upf $x /var/lib/apache2/htdocs/gauche-ffmpeg/
+	cp -upf $x /home/htdocs/gauche-ffmpeg/
   done
 fi
