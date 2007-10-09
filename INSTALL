@@ -38,7 +38,7 @@ Then install some additional libraries:
 
 Now build and install the current version:
 $ cd /path/to/ffmpeg
-$ ./configure  --enable-shared --disable-static --enable-gpl --enable-libogg --enable-vorbis --disable-ffserver --disable-ffplay
+$ ./configure  --enable-shared --disable-static --enable-gpl --enable-libogg --enable-libvorbis --disable-ffserver --disable-ffplay
 $ make
 # make install
 
