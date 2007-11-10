@@ -1,3 +1,9 @@
+2007-11-10  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* mm_avcodec.h, mm_avformat.h, mm_ffmpeg.h: include gauche.h
+	before other headers possibly concerned with Linux's
+	Large File Support.
+
 2007-05-10  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* test/test.scm (check-file): rewritten with match macro.

@@ -23,10 +23,10 @@
 #ifndef GAUCHE_MM_FFMPEG_H
 #define GAUCHE_MM_FFMPEG_H
 
-#include <assert.h>
-
 #include <gauche.h>
 #include <gauche/extend.h>
+
+#include <assert.h>
 
 #include "mm_avcodec.h"
 #include "mm_avformat.h"

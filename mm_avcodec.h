@@ -23,10 +23,10 @@
 #ifndef GAUCHE_MM_AVCODEC_H
 #define GAUCHE_MM_AVCODEC_H
 
-#include <ffmpeg/avcodec.h>
-
 #include <gauche.h>
 #include <gauche/extend.h>
+
+#include <ffmpeg/avcodec.h>
 
 SCM_DECL_BEGIN
 
