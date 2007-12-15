@@ -46,6 +46,9 @@
    (html:li (en/ja (list "It requires the current SVN release of " /ffmpeg/ " which has been installed with a shared library option.")
                    (list "また別途、現在の SVN リリース版 " /ffmpeg/ " の共有ライブラリがインストールされている必要があります。"))))
 
+  (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "License" "ライセンス"))
+  (html:p "GNU Lesser General Public License")
+
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Download" "ダウンロード"))
   (*package-download*)
 
