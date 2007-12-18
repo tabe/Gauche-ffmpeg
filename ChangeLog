@@ -1,3 +1,9 @@
+2007-12-18  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* multimedia/ffmpeg.scm (call-with-input-avcodec): changed its semantics;
+	escape from current continuation does *not* close codec contexts, like
+	call-with-input-file's behavior on the port.
+
 2007-11-10  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* mm_avcodec.h, mm_avformat.h, mm_ffmpeg.h: include gauche.h

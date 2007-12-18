@@ -42,13 +42,11 @@
   (ffmpeg-get-frame-rate fc cc))
 
 (define (call-with-input-avcodec fc proc)
-  (receive (ac vc)
-	  (open-input-avcodec fc)
-	(dynamic-wind
-		(lambda () #f)
-		(lambda () (proc ac vc))
-		(lambda ()
-		  (when ac (close-input-avcodec ac))
-		  (when vc (close-input-avcodec vc))))))
+  (receive (ac vc) (open-input-avcodec fc)
+    (unwind-protect
+     (proc ac vc)
+     (begin
+       (when ac (close-input-avcodec ac))
+       (when vc (close-input-avcodec vc))))))
 
 (provide "multimedia/ffmpeg")
