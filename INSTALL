@@ -5,7 +5,7 @@ It is necessary to:
 - have been installed ffmpeg configured with '--enable-shared' option
 
 It is recommended to:
-- use gauche 0.8.7 or later
+- use gauche 0.8.12 or later
 - use the SVN release of ffmpeg
 
 
@@ -16,6 +16,9 @@ $ ./configure
 $ make
 $ make check
 # make install
+
+Or simply
+# gauche-package install Gauche-ffmpeg-0.1.1.tgz
 
 
 Tutorial
@@ -34,11 +37,11 @@ First you have to assure that the old packages of ffmpeg has been removed, namel
 # aptitude purge ffmpeg libavcodec-dev libavformat-dev
 
 Then install some additional libraries:
-# aptitude install libogg-dev libvorbis-dev
+# aptitude install libvorbis-dev
 
 Now build and install the current version:
 $ cd /path/to/ffmpeg
-$ ./configure  --enable-shared --disable-static --enable-gpl --enable-libogg --enable-libvorbis --disable-ffserver --disable-ffplay
+$ ./configure  --enable-shared --disable-static --enable-gpl --enable-libvorbis --disable-ffserver --disable-ffplay
 $ make
 # make install
 
@@ -46,5 +49,5 @@ And if you get:
 $ ffmpeg -version
 ffmpeg: error while loading shared libraries: libavformat.so.50: cannot open shared object file: No such file or directory
 then you may need to:
-# echo /usr/local/lib >> /etc/ld.so.conf
+# echo /usr/local/lib > /etc/ld.so.conf.d/ffmpeg.conf
 # ldconfig
