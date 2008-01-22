@@ -1,13 +1,15 @@
 2008-01-22  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* mm_avcodec.c, mm_avcodec.h, mm_avcodec.types, mm_avcodeclib.stub: new.
-	They serves to provide the skelton of libavdevice.
+	They will serve to provide the skelton of libavdevice; for now solely
+	avdevice-version.
 	* multimedia/avdevice.scm: ditto.
 
 	* test/test.scm: check avdevice-version.
 	* Makefile.in: build mm_avdevice; added -lavdevice to libs.
 	* mm_ffmpeg.h: include mm_avdevice.h.
 	* multimedia/ffmpeg.scm: extend multimedia.avdevice.
+	* doc/reference.scm: described avdevice-version.
 
 2007-12-18  Takeshi Abe  <tabe@fixedpoint.jp>
 

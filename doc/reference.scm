@@ -5,7 +5,7 @@
 (use text.tree)
 
 (define *version* "0.1.1")
-(define *last-update* "Mon Jan 22 2007")
+(define *last-update* "Tue Jan 22 2008")
 
 (define-syntax def
   (syntax-rules (en ja procedure method)
@@ -130,6 +130,13 @@
 		 "この手続きから戻る前にその <avformat-context> は閉じられます。"))
 	   ))
 
+(define-macro (api-libavdevice lang)
+  `(def ,lang
+        ((procedure (avdevice-version))
+         ("Return the libavdevice's version, e.g. \"52.0.0\".")
+         ("libavdevice のバージョン(例: \"52.0.0\")を文字列として返します。"))
+        ))
+
 (define-macro (api-ffmpeg lang)
   `(def ,lang
 		((method (open-input-acodec (c <avformat-context>))
@@ -191,6 +198,10 @@
 	  (if (eq? 'en lang)
 		  (api-libavformat en)
 		  (api-libavformat ja))
+      (html:h2 "API for libavdevice")
+      (if (eq? 'en lang)
+          (api-libavdevice en)
+          (api-libavdevice ja))
 	  (html:h2 "API for ffmpeg")
 	  (if (eq? 'en lang)
 		  (api-ffmpeg en)
