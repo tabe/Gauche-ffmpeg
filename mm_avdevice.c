@@ -1,7 +1,7 @@
 /*
- *  mm_ffmpeg.h
+ *  mm_avdevice.c
  *
- *   Copyright (C) 2006-2008 Takeshi Abe. All rights reserved.
+ *   Copyright (C) 2008 Takeshi Abe. All rights reserved.
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Lesser General Public
@@ -20,25 +20,18 @@
  *  $Id$
  */
 
-#ifndef GAUCHE_MM_FFMPEG_H
-#define GAUCHE_MM_FFMPEG_H
-
-#include <gauche.h>
-#include <gauche/extend.h>
-
-#include <assert.h>
-
-#include "mm_avcodec.h"
-#include "mm_avformat.h"
 #include "mm_avdevice.h"
 
-SCM_DECL_BEGIN
+ScmObj
+Scm_Init_mm_avdevice(void)
+{
+  ScmModule *mod;
 
-AVCodecContext *ffmpegOpenVideoCodecContext(AVFormatContext *pFormatCtx);
-AVCodecContext *ffmpegOpenAudioCodecContext(AVFormatContext *pFormatCtx);
-int ffmpegOpenCodecContext(AVFormatContext *pFormatCtx, AVCodecContext **a, AVCodecContext **v);
-int ffmpegGetFrameRate(AVFormatContext *pFormatCtx, AVCodecContext *pCodecCtx, int *pNum, int *pDen);
+  SCM_INIT_EXTENSION(mm_avdevice);
 
-SCM_DECL_END
+  mod = SCM_MODULE(SCM_FIND_MODULE("multimedia.avdevice", TRUE));
 
-#endif  /* GAUCHE_MM_FFMPEG_H */
+  avdevice_register_all(); // defined in alldevices.c, not thread safe
+
+  Scm_Init_mm_avdevicelib(mod);
+}

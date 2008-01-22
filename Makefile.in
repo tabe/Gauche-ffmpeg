@@ -25,15 +25,20 @@ EXEEXT = @EXEEXT@
 # Module-specific stuff
 PACKAGE   = Gauche-ffmpeg
 
-ARCHFILES = mm_avformat.$(SOEXT) mm_avcodec.$(SOEXT) mm_ffmpeg.$(SOEXT)
-SCMFILES  = multimedia/avcodec.scm multimedia/avformat.scm multimedia/ffmpeg.scm
+ARCHFILES = mm_avcodec.$(SOEXT) mm_avformat.$(SOEXT) mm_avdevice.$(SOEXT) mm_ffmpeg.$(SOEXT)
+SCMFILES  = multimedia/avcodec.scm \
+            multimedia/avformat.scm \
+            multimedia/avdevice.scm \
+            multimedia/ffmpeg.scm
 HEADERS   = mm_avcodec.h mm_avcodec.types \
-            mm_avformat.h mm_avformat.types
+            mm_avformat.h mm_avformat.types \
+            mm_avdevice.h mm_avdevice.types
 
 TARGET    = $(ARCHFILES)
 GENERATED = *.$(OBJEXT) \
-			mm_avformat_head.c mm_avformat_tail.c \
 			mm_avcodec_head.c mm_avcodec_tail.c \
+			mm_avformat_head.c mm_avformat_tail.c \
+            mm_avdevice_head.c mm_avdevice_tail.c \
 			mm_ffmpeg_head.c mm_ffmpeg_tail.c
 CONFIG_GENERATED = Makefile config.cache config.log config.status \
 		   configure.lineno autom4te*.cache $(PACKAGE).gpd
@@ -49,6 +54,7 @@ LIBS     = @LIBS@
 
 avcodec_SRCS  = mm_avcodec.c mm_avcodeclib.stub
 avformat_SRCS = mm_avformat.c mm_avformatlib.stub
+avdevice_SRCS = mm_avdevice.c mm_avdevicelib.stub
 ffmpeg_SRCS   = mm_ffmpeg.c mm_ffmpeglib.stub
 
 all: $(TARGET)
@@ -69,12 +75,20 @@ mm_avformat.$(SOEXT): $(avformat_SRCS)
 		--libs=' $(LIBS) -lavformat' \
 		mm_avformat $(avformat_SRCS)
 
+mm_avdevice.$(SOEXT): $(avdevice_SRCS)
+	$(GAUCHE_PACKAGE) compile --verbose \
+		--cppflags='$(CPPFLAGS)' \
+		--cflags='$(CFLAGS)' \
+		--ldflags='$(LDFLAGS)' \
+		--libs=' $(LIBS) -lavdevice' \
+		mm_avdevice $(avdevice_SRCS)
+
 mm_ffmpeg.$(SOEXT): $(ffmpeg_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
 		--cppflags='$(CPPFLAGS)' \
 		--cflags='$(CFLAGS)' \
 		--ldflags='$(LDFLAGS)' \
-		--libs='$(LIBS) -lavcodec -lavformat' \
+		--libs='$(LIBS) -lavcodec -lavformat -lavdevice' \
 		mm_ffmpeg $(ffmpeg_SRCS)
 
 check: all

@@ -1,7 +1,7 @@
 /*
- *  mm_ffmpeg.h
+ *  mm_avdevice.h
  *
- *   Copyright (C) 2006-2008 Takeshi Abe. All rights reserved.
+ *   Copyright (C) 2008 Takeshi Abe. All rights reserved.
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Lesser General Public
@@ -20,25 +20,17 @@
  *  $Id$
  */
 
-#ifndef GAUCHE_MM_FFMPEG_H
-#define GAUCHE_MM_FFMPEG_H
+#ifndef GAUCHE_MM_AVDEVICE_H
+#define GAUCHE_MM_AVDEVICE_H
 
 #include <gauche.h>
 #include <gauche/extend.h>
 
-#include <assert.h>
-
-#include "mm_avcodec.h"
-#include "mm_avformat.h"
-#include "mm_avdevice.h"
+#include <ffmpeg/avutil.h> /* for AV_STRINGIFY */
+#include <ffmpeg/avdevice.h>
 
 SCM_DECL_BEGIN
 
-AVCodecContext *ffmpegOpenVideoCodecContext(AVFormatContext *pFormatCtx);
-AVCodecContext *ffmpegOpenAudioCodecContext(AVFormatContext *pFormatCtx);
-int ffmpegOpenCodecContext(AVFormatContext *pFormatCtx, AVCodecContext **a, AVCodecContext **v);
-int ffmpegGetFrameRate(AVFormatContext *pFormatCtx, AVCodecContext *pCodecCtx, int *pNum, int *pDen);
-
 SCM_DECL_END
 
-#endif  /* GAUCHE_MM_FFMPEG_H */
+#endif  /* GAUCHE_MM_AVDEVICE_H */

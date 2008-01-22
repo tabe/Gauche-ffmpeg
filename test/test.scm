@@ -27,6 +27,10 @@
 (test*-version avformat-version)
 
 ; ------------------------------------------------------------------------
+(test-section "libavdevice")
+(test*-version avdevice-version)
+
+; ------------------------------------------------------------------------
 (test-section "format context")
 
 (define fc-empty (open-input-avformat "empty.wmv"))
