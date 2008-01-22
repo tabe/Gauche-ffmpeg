@@ -35,27 +35,33 @@
   (html:ul
    (html:li (en/ja "some descriptions on media files."
                    "メディアファイルの情報の取得。"))
-   (html:li (en/ja "accessors of libavcodec/libavformat version info."
-                   "libavcodec/libavformat のバージョン情報へのアクセス。"))
+   (html:li (en/ja "accessors of libavcodec/libavformat/libavdevice version info."
+                   "libavcodec/libavformat/libavdevice のバージョン情報へのアクセス。"))
    )
 
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Requirements" "導入"))
-  (html:p (en/ja "This package is for Gauche 0.8.7 or later."
-                 "このパッケージは Gauche 0.8.7 またはそれ以上で動作します。"))
+  (html:p (en/ja "This package is for Gauche 0.8.12 or later."
+                 "このパッケージは Gauche 0.8.12 またはそれ以上で動作します。"))
   (html:ul
-   (html:li (en/ja (list "It requires the current SVN release of " /ffmpeg/ " which has been installed with a shared library option.")
+   (html:li (en/ja (list "It requires the current SVN release of " /ffmpeg/ " which has been installed as a shared library.")
                    (list "また別途、現在の SVN リリース版 " /ffmpeg/ " の共有ライブラリがインストールされている必要があります。"))))
 
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "License" "ライセンス"))
-  (html:p "GNU Lesser General Public License")
+  (html:p "GNU Lesser General Public License, Version 2.1")
 
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Download" "ダウンロード"))
   (*package-download*)
 
-  (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Documents" "文書"))
+  (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Documentation" "文書"))
   (html:ul
    (html:li (html:a :href (en/ja "reference.en.html" "reference.ja.html")
                     "Gauche-ffmpeg " (en/ja "Reference Manual" "リファレンスマニュアル"))))
+
+  (html:h2 :stle "border-bottom: 1px solid #bbbbbb;" (en/ja "Known Issues" "既知の問題"))
+  (html:ul
+   (html:li (en/ja "Loading the modules are not thread safe."
+                   "モジュールの読み込みはスレッドセーフではありません。"))
+   )
 
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Links" "リンク"))
   (html:ul
