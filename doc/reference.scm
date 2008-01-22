@@ -4,7 +4,7 @@
 (use text.html-lite)
 (use text.tree)
 
-(define *version* "0.1.1")
+(define *version* "0.2.0")
 (define *last-update* "Tue Jan 22 2008")
 
 (define-syntax def

@@ -8,10 +8,10 @@
 (//
  (ffmpeg-php "http://ffmpeg-php.sourceforge.net/")
  (rmovie "http://rmovie.rubyforge.org/")
- (FFmpeg::Command "http://search.cpan.org/~mizzy/FFmpeg-Command-0.06/lib/FFmpeg/Command.pm")
+ (FFmpeg::Command "http://search.cpan.org/~mizzy/FFmpeg-Command-0.07/lib/FFmpeg/Command.pm")
  )
 
-(define-package Gauche-ffmpeg 2007 11 1)
+(define-package Gauche-ffmpeg 2008 1 23)
 
 (define-index Gauche-ffmpeg
   (html:p (html:dfn /Gauche-ffmpeg/)
@@ -23,7 +23,9 @@
 
   (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "News" "最新情報"))
   (html:ul
-   (html:li "[2007-11-01]" (en/ja "It is confirmed that the current version 0.1.1 runs on Gauche 0.8.12."
+   (html:li "[2008-01-23] " (en/ja "Release 0.2.0. Introduced liavdevice."
+                                   "バージョン 0.2.0 を公開しました。libavdevice を導入しました。"))
+   (html:li "[2007-11-01] " (en/ja "It is confirmed that the current version 0.1.1 runs on Gauche 0.8.12."
                                   "Gauche 0.8.12 で現在のバージョン 0.1.1 が動作することを確認しました。"))
    (html:li "[2007-05-08] " (en/ja "Release 0.1.1, which now runs on Gauche 0.8.10."
                                    "バージョン 0.1.1 を公開しました。Gauche 0.8.10 で動作します。"))

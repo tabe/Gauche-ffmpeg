@@ -18,7 +18,7 @@ $ make check
 # make install
 
 Or simply
-# gauche-package install Gauche-ffmpeg-0.1.1.tgz
+# gauche-package install Gauche-ffmpeg-0.2.0.tgz
 
 
 Tutorial

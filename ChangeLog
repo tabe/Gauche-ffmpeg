@@ -1,3 +1,7 @@
+2008-01-23  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* release 0.2.0.
+
 2008-01-22  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* mm_avcodec.c, mm_avcodec.h, mm_avcodec.types, mm_avcodeclib.stub: new.
