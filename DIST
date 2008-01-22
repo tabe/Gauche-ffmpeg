@@ -54,7 +54,8 @@ if [ "$sim" = "yes" ]; then
   VERSION=`cat VERSION`
   (cd ..; zcat $MODULE-$VERSION.tgz | tar xf -)
   (cd ../$MODULE-$VERSION; ./configure)
-  $MAKE -C ../$MODULE-$VERSION all check doc example
+#  $MAKE -C ../$MODULE-$VERSION all check doc example
+  $MAKE -C ../$MODULE-$VERSION/doc doc
 fi
 
 if [ "$pub" = "yes" ]; then
@@ -69,6 +70,6 @@ if [ "$pub" = "yes" ]; then
 	  ../$MODULE-$VERSION/doc/reference.en.html \
 	  gauche-ffmpeg/index.html \
 	  gauche-ffmpeg/index.en.html; do
-	cp -upf $x /home/htdocs/gauche-ffmpeg/
+	cp -pf $x /home/htdocs/gauche-ffmpeg/
   done
 fi
