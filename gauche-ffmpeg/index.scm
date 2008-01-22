@@ -59,7 +59,7 @@
    (html:li (html:a :href (en/ja "reference.en.html" "reference.ja.html")
                     "Gauche-ffmpeg " (en/ja "Reference Manual" "リファレンスマニュアル"))))
 
-  (html:h2 :stle "border-bottom: 1px solid #bbbbbb;" (en/ja "Known Issues" "既知の問題"))
+  (html:h2 :style "border-bottom: 1px solid #bbbbbb;" (en/ja "Known Issues" "既知の問題"))
   (html:ul
    (html:li (en/ja "Loading the modules are not thread safe."
                    "モジュールの読み込みはスレッドセーフではありません。"))
