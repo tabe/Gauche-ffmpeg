@@ -53,6 +53,9 @@ fi
 
 dnl Check for libraries
 dnl Add your macro calls to check required libraries, if you have any.
+PKG_CHECK_MODULES([LIBAVCODEC], [libavcodec])
+PKG_CHECK_MODULES([LIBAVFORMAT], [libavformat])
+PKG_CHECK_MODULES([LIBAVDEVICE], [libavdevice])
 
 dnl Creating gpd (gauche package description) file
 GAUCHE_PACKAGE_CONFIGURE_ARGS="`echo ""$ac_configure_args"" | sed 's/[\\""\`\$]/\\\&/g'`"

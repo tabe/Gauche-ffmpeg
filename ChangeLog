@@ -1,3 +1,8 @@
+2008-01-24  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* configure.ac: check ffmpeg's libraries by pkg-config.
+	* Makefile.in: use environment varables provided by pkg-config.
+
 2008-01-23  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* release 0.2.0.

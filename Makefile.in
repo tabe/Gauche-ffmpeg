@@ -52,6 +52,15 @@ CFLAGS   = @CFLAGS@
 LDFLAGS  = @LDFLAGS@
 LIBS     = @LIBS@
 
+LIBAVCODEC_CFLAGS  = @LIBAVCODEC_CFLAGS@
+LIBAVFORMAT_CFLAGS = @LIBAVFORMAT_CFLAGS@
+LIBAVDEVICE_CFLAGS = @LIBAVDEVICE_CFLAGS@
+FFMPEG_CFLAGS      = $(LIBAVDEVICE_CFLAGS)
+LIBAVCODEC_LIBS  = @LIBAVCODEC_LIBS@
+LIBAVFORMAT_LIBS = @LIBAVFORMAT_LIBS@
+LIBAVDEVICE_LIBS = @LIBAVDEVICE_LIBS@
+FFMPEG_LIBS      = $(LIBAVDEVICE_LIBS)
+
 avcodec_SRCS  = mm_avcodec.c mm_avcodeclib.stub
 avformat_SRCS = mm_avformat.c mm_avformatlib.stub
 avdevice_SRCS = mm_avdevice.c mm_avdevicelib.stub
@@ -62,40 +71,40 @@ all: $(TARGET)
 mm_avcodec.$(SOEXT): $(avcodec_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
 		--cppflags='$(CPPFLAGS)' \
-		--cflags='$(CFLAGS)' \
+		--cflags='$(CFLAGS) $(LIBAVCODEC_CFLAGS)' \
 		--ldflags='$(LDFLAGS)' \
-		--libs=' $(LIBS) -lavcodec' \
+		--libs=' $(LIBS) $(LIBAVCODEC_LIBS)' \
 		mm_avcodec $(avcodec_SRCS)
 
 mm_avformat.$(SOEXT): $(avformat_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
 		--cppflags='$(CPPFLAGS)' \
-		--cflags='$(CFLAGS)' \
+		--cflags='$(CFLAGS) $(LIBAVFORMAT_CFLAGS)' \
 		--ldflags='$(LDFLAGS)' \
-		--libs=' $(LIBS) -lavformat' \
+		--libs=' $(LIBS) $(LIBAVFORMAT_LIBS)' \
 		mm_avformat $(avformat_SRCS)
 
 mm_avdevice.$(SOEXT): $(avdevice_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
 		--cppflags='$(CPPFLAGS)' \
-		--cflags='$(CFLAGS)' \
+		--cflags='$(CFLAGS) $(LIBAVDEVICE_CFLAGS)' \
 		--ldflags='$(LDFLAGS)' \
-		--libs=' $(LIBS) -lavdevice' \
+		--libs=' $(LIBS) $(LIBAVDEVICE_LIBS)' \
 		mm_avdevice $(avdevice_SRCS)
 
 mm_ffmpeg.$(SOEXT): $(ffmpeg_SRCS)
 	$(GAUCHE_PACKAGE) compile --verbose \
 		--cppflags='$(CPPFLAGS)' \
-		--cflags='$(CFLAGS)' \
+		--cflags='$(CFLAGS) $(FFMPEG_CFLAGS)' \
 		--ldflags='$(LDFLAGS)' \
-		--libs='$(LIBS) -lavcodec -lavformat -lavdevice' \
+		--libs=' $(LIBS) $(FFMPEG_LIBS)' \
 		mm_ffmpeg $(ffmpeg_SRCS)
 
 check: all
-	cd test && $(MAKE) check
+	$(MAKE) -C test check
 
 doc: all
-	cd doc && $(MAKE) doc
+	$(MAKE) -C doc doc
 
 install: all
 	$(INSTALL) -m 444 -T $(HEADER_INSTALL_DIR) $(HEADERS)
@@ -111,7 +120,8 @@ uninstall:
 
 clean:
 	$(GAUCHE_PACKAGE) compile --clean ffmpeg $(ffmpeg_SRCS)
-	cd test && $(MAKE) clean
+	$(MAKE) -C doc clean
+	$(MAKE) -C test clean
 	rm -rf core *~ $(TARGET) $(GENERATED) so_locations
 
 distclean: clean
