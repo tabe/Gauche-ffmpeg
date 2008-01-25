@@ -21,12 +21,12 @@ Or simply
 # gauche-package install Gauche-ffmpeg-0.2.0.tgz
 
 
-Tutorial
-========
+General
+=======
 
-If libavcodec or libavformat is installed in a non standard directory, you will want to:
-$ make CPPFLAGS='-I/opt/foo/include' LDFLAGS='-L/opt/foo/lib'
-instead of just make.
+Detecting your libav* the package use pkg-config if possible.
+Otherwise you can pass the environment variables AVLIB*_CFLAGS and AVLIB*_LIBS
+to get the same benefit.
 
 
 Distribution Specific
